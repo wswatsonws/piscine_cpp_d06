@@ -1,24 +1,20 @@
-#ifndef KOALASTEROID_H
-# define KOALASTEROID_H
+#ifndef KOALA_STEROID_HH
+#define KOALA_STEROID_HH
+#include <string>
+#include "IAsteroid.hh"
+#include "IMiningLaser.hh"
+#include "DeepCoreMiner.hh"
+//#include "StripMiner.hh"
 
-# include "IAsteroid.hh"
-
-//BocalSteroid 
-class KoalaSteroid : public IAsteroid
-{
+class KoalaSteroid : public IAsteroid{
 public:
-	std::string getName (void) const;
+  KoalaSteroid();
+  ~KoalaSteroid();
+  std::string beMined(IMiningLaser *p) const;
+  std::string beMined(DeepCoreMiner *p) const;
+  std::string beMined(StripMiner *p) const;
+  virtual std::string getName() const;
 
-	KoalaSteroid (void);
-	KoalaSteroid (KoalaSteroid const & target);
-	~KoalaSteroid (void);
-
-	std::string beMined (StripMiner const * tool) const;
-	std::string beMined (DeepCoreMiner const * tool) const;
-	
-	KoalaSteroid & operator = (KoalaSteroid const & target);
 };
-
-std::ostream & operator << (std::ostream & o, KoalaSteroid const & target);
 
 #endif

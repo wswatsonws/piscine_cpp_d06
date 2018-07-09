@@ -1,30 +1,22 @@
+#include <string>
 #include "AsteroKreog.hh"
-#include "IMiningLaser.hh"
 
-std::string AsteroKreog::getName (void) const {return "AsteroKreog";}
-
-AsteroKreog::AsteroKreog (void) {}
-
-AsteroKreog::AsteroKreog (AsteroKreog const & target) {*this = target;}
-
-AsteroKreog::~AsteroKreog (void) {}
-
-std::string AsteroKreog::beMined (StripMiner const * tool) const {
-	(void)tool;
-	return "Flavium";
+AsteroKreog::AsteroKreog(){
+}
+AsteroKreog::~AsteroKreog(){
 }
 
-std::string AsteroKreog::beMined (DeepCoreMiner const * tool) const {
-	(void)tool;
-	return "Thorite";
+std::string AsteroKreog::beMined(IMiningLaser *p) const{
+  p = p;
+  std::cout << "ici" << std::endl;
+  return "";
+  }
+std::string AsteroKreog::beMined(DeepCoreMiner *p) const{
+  p = p;
+  return "Sullite";
 }
-
-AsteroKreog & AsteroKreog::operator = (AsteroKreog const & target) {
-	(void)target;
-	return *this;
+std::string AsteroKreog::beMined(StripMiner *p) const{
+  p = p;
+  return "Kreogium";
 }
-
-std::ostream & operator << (std::ostream & o, AsteroKreog const & target) {
-	o << "This is: " << target.getName() << std::endl;
-	return o;
-}
+std::string AsteroKreog::getName() const{ return "AsteroKreog" ;}

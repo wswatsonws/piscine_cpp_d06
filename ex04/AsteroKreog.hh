@@ -1,24 +1,21 @@
-#ifndef ASTEROKREOG_H
-# define ASTEROKREOG_H
+#ifndef ASTERO_KREOG_HH
+#define ASTERO_KREOG_HH
 
-# include "IAsteroid.hh"
+#include <string>
+#include "IAsteroid.hh"
+#include "IMiningLaser.hh"
+#include "DeepCoreMiner.hh"
+//#include "StripMiner.hh"
 
-//AsteroBocal
-class AsteroKreog : public IAsteroid
-{
+class AsteroKreog : public IAsteroid{
 public:
-	std::string getName (void) const;
+  AsteroKreog();
+  ~AsteroKreog();
+  std::string beMined(IMiningLaser *p) const;
+  std::string beMined(DeepCoreMiner *p) const;
+  std::string beMined(StripMiner *p) const;
+  virtual std::string getName() const;
 
-	AsteroKreog (void);
-	AsteroKreog (AsteroKreog const & target);
-	~AsteroKreog (void);
-
-	std::string beMined (StripMiner const * tool) const;
-	std::string beMined (DeepCoreMiner const * tool) const;
-	
-	AsteroKreog & operator = (AsteroKreog const & target);
 };
-
-std::ostream & operator << (std::ostream & o, AsteroKreog const & target);
 
 #endif

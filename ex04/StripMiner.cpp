@@ -1,27 +1,5 @@
 #include "StripMiner.hh"
 
-StripMiner::StripMiner (void) {}
-
-StripMiner::StripMiner (StripMiner const & target) {*this = target;}
-
-StripMiner::~StripMiner (void) {}
-
-void StripMiner::mine (IAsteroid * target) {
-	if (target == NULL)
-		return;
-
-	std::cout << "* strip mining ... got " << target->beMined(this) <<
-		"! *" << std::endl;
-}
-
-StripMiner & StripMiner::operator = (StripMiner const & target) {
-	(void)target;
-	return *this;
-}
-
-std::ostream & operator << (std::ostream & o, StripMiner const & target) {
-	o << "It's a StripMiner" << std::endl;
-	(void)target;
-	
-	return o;
-}
+StripMiner::StripMiner(){}
+StripMiner::~StripMiner(){}
+void StripMiner::mine(IAsteroid *s){ std::cout << "* mining deep ... got "<< s->beMined(this)<<" ! *" << std::endl; }

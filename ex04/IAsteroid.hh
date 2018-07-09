@@ -1,22 +1,21 @@
-#ifndef IASTEROID_H
-# define IASTEROID_H
+#ifndef IASTEROID_HH
+#define IASTEROID_HH
 
-# include <string>
-# include <iostream>
-
-class StripMiner;
+#include <string>
+class IAsteroid;
 class DeepCoreMiner;
+class StripMiner;
+class IMiningLaser;
+#include "IMiningLaser.hh"
 
-class IAsteroid
-{
+class IAsteroid{
 public:
-	virtual std::string getName (void) const = 0;
+  virtual ~IAsteroid(){};
+  virtual std::string beMined(IMiningLaser *) const = 0;
+  virtual std::string beMined(DeepCoreMiner *) const = 0;
+  virtual std::string beMined(StripMiner *)const  = 0;
 
-	virtual ~IAsteroid (void) {}
-
-	virtual std::string beMined (StripMiner const * tool) const = 0;
-	virtual std::string beMined (DeepCoreMiner const * tool) const = 0;
+  virtual std::string getName() const = 0;
+  
 };
-
-
 #endif

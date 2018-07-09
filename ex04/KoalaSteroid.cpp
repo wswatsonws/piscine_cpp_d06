@@ -1,30 +1,16 @@
 #include "KoalaSteroid.hh"
-#include "IMiningLaser.hh"
 
-std::string KoalaSteroid::getName (void) const {return "KoalaSteroid";}
 
-KoalaSteroid::KoalaSteroid (void) {}
-
-KoalaSteroid::KoalaSteroid (KoalaSteroid const & target) {*this = target;}
-
-KoalaSteroid::~KoalaSteroid (void) {}
-
-std::string KoalaSteroid::beMined (StripMiner const * tool) const {
-	(void)tool;
-	return "Krpite";
+KoalaSteroid::KoalaSteroid(){}
+KoalaSteroid::~KoalaSteroid(){}
+std::string KoalaSteroid::beMined(IMiningLaser *p) const{
+  p = p; return "";
 }
-
-std::string KoalaSteroid::beMined (DeepCoreMiner const * tool) const {
-	(void)tool;
-	return "Zazium";
+std::string KoalaSteroid::beMined(DeepCoreMiner *p) const{
+  p = p; return "Zazium";
 }
-
-KoalaSteroid & KoalaSteroid::operator = (KoalaSteroid const & target) {
-	(void)target;
-	return *this;
+std::string KoalaSteroid::beMined(StripMiner *p) const{
+  p = p;
+  return "Koalite";
 }
-
-std::ostream & operator << (std::ostream & o, KoalaSteroid const & target) {
-	o << "This is: " << target.getName() << std::endl;
-	return o;
-}
+std::string KoalaSteroid::getName() const{ return "KoalaSteroid";};
