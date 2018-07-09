@@ -1,60 +1,89 @@
 #include "Character.hh"
+#include "AMateria.hh"
 
-Character::Character(std::string const & name)
-: name(name) {
-	int i;
-	for (i = 0; i < 4; i++) {
-		slots[i] = NULL;
+Character::Character()
+{
+
+}
+
+Character::Character(const std::string& name) :
+	_name(name)
+{
+	this->_mats[0] = 0;
+	this->_mats[1] = 0;
+	this->_mats[2] = 0;
+	this->_mats[3] = 0;
+}
+
+Character::~Character()
+{
+	this->release();
+}
+
+Character::Character(const Character& c) :
+	_name(c._name)
+{
+	this->_mats[0] = 0;
+	this->_mats[1] = 0;
+	this->_mats[2] = 0;
+	this->_mats[3] = 0;
+	for (int i = 0; i < 4; ++i)
+	{
+		if (c._mats[i])
+			this->_mats[i] = c._mats[i]->clone();
 	}
 }
 
-Character::Character(Character const & perso) {
-	name = perso.name;
-	int i;
-	for (i = 0; i < 4; i++) {
-		if (slots[i]) {
-			//delete slots[i];
+Character&	Character::operator=(const Character& c)
+{
+	this->release();
+	for (int i = 0; i < 4; ++i)
+	{
+		if (c._mats[i])
+			this->_mats[i] = c._mats[i]->clone();
+	}
+	return *this;
+}
+
+void				Character::release()
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		if (this->_mats[i])
+			delete this->_mats[i];
+		this->_mats[i] = 0;
+	}
+}
+
+const std::string&	Character::getName() const
+{
+	return this->_name;
+}
+
+void				Character::equip(AMateria *mat)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		if (!this->_mats[i])
+		{
+			this->_mats[i] = mat;
+			break ;
 		}
-		slots[i] = NULL;
-		if (perso.slots[i]) {
-			slots[i] = perso.slots[i]->clone();
-		}
 	}
 }
 
-Character::~Character() {
-	int i;
-	for(i = 0; i < 4; i++) {
-		if (slots[i]) {
-			//delete slots[i];
-		}
+void				Character::unequip(int index)
+{
+	if (this->_mats[index])
+	{
+		for (;index < 3; ++index)
+			this->_mats[index + 1] = this->_mats[index];
+		this->_mats[3] = 0;
 	}
 }
 
-std::string const & Character::getName() const {
-	return name;
-}
-
-void Character::equip(AMateria* materia) {
-	if (materia) {
-		int i;
-		for(i = 0; i < 4; i++) {
-			if (slots[i] == NULL) {
-				slots[i] = materia;
-				return;
-			}
-		}
-	}
-}
-
-void Character::unequip(int index) {
-	if (index >= 0 && index < 4) {
-		slots[index] = NULL;
-	}
-}
-
-void Character::use(int index, ICharacter& target) {
-	if (index >= 0 && index < 4 && slots[index] != NULL) {
-		slots[index]->use(target);
-	}
+void				Character::use(int index, ICharacter& target)
+{
+	if (this->_mats[index])
+		this->_mats[index]->use(target);
 }

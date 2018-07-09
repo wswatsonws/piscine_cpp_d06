@@ -1,77 +1,69 @@
-#include <cstddef>
-#include <cstdlib>
-#include <iostream>
+//
+// Created by Alen BADRAJAN on 7/25/17.
+//
+
 #include "Squad.hh"
 
+int     Squad::nr_atributes = 0;
+
 Squad::Squad()
-	: marines(new ISpaceMarine*[64]),
-	  count(0),
-	  arrLen(64)
 {
+    this->s = new ISpaceMarine*[Squad::nr_atributes];
 }
 
-Squad::Squad(Squad const &other)
-	: marines(new ISpaceMarine*[other.getCount()]),
-	  arrLen(other.getCount())
+Squad::Squad(Squad &f)
 {
-	int i = 0;
-
-	while (i < other.getCount())
-		marines[i] = other.getUnit(i)->clone();
+	*this = f;
 }
 
 Squad::~Squad()
 {
-	int i = 0;
-
-	while (i < this->count)
-		delete marines[i++];
-	delete[] marines;
+	if (this->getCount())
+		for (int i = 0; i < this->getCount(); i++)
+			delete this->s[i];
 }
 
-Squad	&Squad::operator=(Squad const &other)
+Squad &Squad::operator=(Squad &r)
 {
-	int i = 0;
+	if (this->getCount())
+		for (int i = 0; i < this->getCount(); i++)
+			delete this->s[i];
+	this->s = r.s;
+	Squad::nr_atributes = r.getCount();
 
-	while (i < count)
-		delete marines[i++];
-	count = 0;
-	i = 0;
-	while (i < other.count)
-		this->push(other.getUnit(i));
 	return *this;
 }
 
-int	Squad::getCount() const
+int Squad::getCount() const
 {
-	return count;
+    return Squad::nr_atributes;
 }
 
-ISpaceMarine	*Squad::getUnit(int unit) const
+ISpaceMarine * Squad::getUnit(int n) const
 {
-	if (unit < count)
-		return marines[unit];
-	else
-		return nullptr;
+	int		i = 0;
+
+	while (i < this->getCount() && i != n)
+		i++;
+	if (i == n)
+		return s[i];
+	return NULL;
 }
 
-int			Squad::push(ISpaceMarine *marine)
+int Squad::push(ISpaceMarine *w)
 {
-	ISpaceMarine	**newArr;
+	int i = 0;
 
-	if (count < arrLen)
-		marines[count++] = marine;
-	else {
-		newArr = new ISpaceMarine*[++arrLen];
-		int i = 0;
-		while (i < arrLen - 1)
-		{
-			newArr[i] = marines[i];
-			++i;
-			}
-		newArr[count++] = marine;
-		delete[] marines;
-		marines = newArr;
-	}
-	return count;
+	while (i < this->getCount())
+		if (this->s[i++] == w)
+			return this->getCount();
+
+	ISpaceMarine **n = new ISpaceMarine*[Squad::nr_atributes + 1];
+	for (int i = 0; i < Squad::nr_atributes; i++)
+		n[i] = this->s[i];
+	n[Squad::nr_atributes] = w;
+	delete [] this->s;
+	this->s = n;
+	Squad::nr_atributes++;
+	return this->getCount();
 }

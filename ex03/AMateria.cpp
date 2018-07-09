@@ -1,31 +1,49 @@
 #include "AMateria.hh"
 
-AMateria::AMateria(std::string const & type)
-: xp(0), type(type) {
+AMateria::AMateria(const std::string& type) :
+	_type(type),
+	_xp(0)
+{
 
 }
 
-AMateria::~AMateria() {
+AMateria::AMateria() :
+	_type(""),
+	_xp(0)
+{
 
 }
 
-unsigned int AMateria::getXP() const {
-	return xp;
+AMateria::~AMateria()
+{
+	
 }
 
-std::string const & AMateria::getType() const {
-	return type;
+AMateria::AMateria(const AMateria& m) :
+	_type(m._type),
+	_xp(m._xp)
+{
+
 }
 
-void AMateria::use(ICharacter & target) {
-	xp += 10;
-	effect(target);
+AMateria&	AMateria::operator=(const AMateria& m)
+{
+	this->_xp = m._xp;
+	return *this;
 }
 
-void AMateria::effect(ICharacter& target) {
-	(void) target;
+const std::string	&AMateria::getType() const
+{
+	return (this->_type);
 }
 
-void AMateria::speak(std::string message) {
-	std::cout << message << std::endl;
+unsigned int		AMateria::getXP() const
+{
+	return this->_xp;
+}
+
+void				AMateria::use(ICharacter& target)
+{
+	(void)target;
+	this->_xp += 10;
 }

@@ -1,26 +1,30 @@
 #ifndef CHARACTER_H_
-#define CHARACTER_H_
+# define CHARACTER_H_
 
-#include <string>
-#include <iostream>
+# include "ICharacter.hh"
 
-#include "ICharacter.hh"
-#include "AMateria.hh"
+class AMateria;
 
-class Character : public ICharacter {
-protected:
-	AMateria *slots[4];
-	std::string name;
+class Character : public ICharacter
+{
+private:
+	AMateria	*_mats[4];
+	std::string	_name;
+
+	Character();
+
+	void		release();
 
 public:
-	Character(std::string const & name);
-	Character(Character const & perso);
-	~Character();
+	Character(const std::string& name);
+	virtual		~Character();
+	Character(const Character& c);
+	Character& operator=(const Character& c);
 
-	virtual std::string const & getName() const;
-	virtual void equip(AMateria * materia);
-	virtual void unequip(int index);
-	virtual void use(int index, ICharacter & target);
+	virtual const std::string&		getName() const;
+	virtual void					equip(AMateria* m);
+	virtual void					unequip(int idx);
+	virtual void					use(int idx, ICharacter& target);
 };
 
 #endif

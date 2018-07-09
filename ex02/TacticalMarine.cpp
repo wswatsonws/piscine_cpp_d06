@@ -1,44 +1,49 @@
-#include <iostream>
+//
+// Created by Alen BADRAJAN on 7/25/17.
+//
+
 #include "TacticalMarine.hh"
 
 TacticalMarine::TacticalMarine()
 {
-	std::cout << "Tactical Marine ready for battle\n";
+	OUT << "Tactical Marine ready for battle" << std::endl;
 }
 
-TacticalMarine::TacticalMarine(TacticalMarine const &other)
+TacticalMarine::TacticalMarine(TacticalMarine &f)
 {
-	(void)other;
-	std::cout << "Tactical Marine ready for battle\n";
+	(void)f;
+	OUT << "Tactical Marine ready for battle" << std::endl;
 }
 
 TacticalMarine::~TacticalMarine()
 {
-	std::cout << "Aaargh...\n";
+    OUT << "Aaargh ..." << std::endl;
 }
 
-TacticalMarine	&TacticalMarine::operator=(TacticalMarine const &other)
+TacticalMarine &TacticalMarine::operator=(TacticalMarine &r)
 {
-	(void)other;
+	(void)r;
 	return *this;
 }
 
-ISpaceMarine	*TacticalMarine::clone() const
+ISpaceMarine *TacticalMarine::clone() const
 {
-	return new TacticalMarine();
+	TacticalMarine const *t = this;
+
+	return (ISpaceMarine *) t;
 }
 
-void			TacticalMarine::battleCry() const
+void TacticalMarine::battleCry() const
 {
-	std::cout << "For the holy PLOT !\n";
+    OUT << "For the holy PLOT !" << std::endl;
 }
 
-void			TacticalMarine::rangedAttack() const
+void TacticalMarine::rangedAttack() const
 {
-	std::cout << "* attacks with bolter *\n";
+	OUT << "* attacks with bolter *" << std::endl;
 }
 
-void			TacticalMarine::meleeAttack() const
+void TacticalMarine::meleeAttack() const
 {
-	std::cout << "* attacks with chainsword *\n";
+	OUT << "* attacks with chainsword *" << std::endl;
 }

@@ -1,23 +1,37 @@
 #include "Cure.hh"
+#include <iostream>
+#include "AMateria.hh"
 
-Cure::Cure()
-: AMateria("cure") {
-
-}
-
-Cure::Cure(Cure const & cure)
-: AMateria("cure") {
-	this->xp = cure.xp;
-}
-
-Cure::~Cure() {
+Cure::Cure() :
+	AMateria("cure")
+{
 
 }
 
-AMateria * Cure::clone() const {
+Cure::~Cure()
+{
+
+}
+
+Cure::Cure(const Cure& c) :
+	AMateria(c)
+{
+
+}
+
+Cure&	Cure::operator=(const Cure& c)
+{
+	AMateria::operator=(c);
+	return *this;
+}
+
+AMateria	*Cure::clone() const
+{
 	return new Cure(*this);
 }
 
-void Cure::effect(ICharacter & target) {
-	speak(std::string("* heals ") + target.getName() + "'s wounds *");
+void 		Cure::use(ICharacter& target)
+{
+	AMateria::use(target);
+	std::cout << "* heals " << target.getName() << "’s wounds *" << std::endl;
 }

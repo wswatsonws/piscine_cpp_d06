@@ -1,44 +1,48 @@
-#include <iostream>
+//
+// Created by Alen BADRAJAN on 7/25/17.
+//
 #include "AssaultTerminator.hh"
 
 AssaultTerminator::AssaultTerminator()
 {
-	std::cout << "* teleports from space *\n";
+	OUT << "* teleports from space *" << std::endl;
 }
 
-AssaultTerminator::AssaultTerminator(AssaultTerminator const &other)
+AssaultTerminator::AssaultTerminator(AssaultTerminator &f)
 {
-	(void) other;
-	std::cout << "* teleports from space *\n";
+	(void)f;
+	OUT << "* teleports from space *" << std::endl;
 }
 
 AssaultTerminator::~AssaultTerminator()
 {
-	std::cout << "I'll be back..." << std::endl;
+	OUT << "I’ll be back ..." << std::endl;
 }
 
-AssaultTerminator	&AssaultTerminator::operator=(AssaultTerminator const &other)
+AssaultTerminator &AssaultTerminator::operator=(AssaultTerminator &r)
 {
-	(void) other;
+	(void)r;
 	return *this;
 }
 
-ISpaceMarine	*AssaultTerminator::clone() const
+void AssaultTerminator::battleCry() const
 {
-	return new AssaultTerminator();
+	OUT << "This code is unclean. PURIFY IT !" << std::endl;
 }
 
-void			AssaultTerminator::battleCry() const
+void AssaultTerminator::rangedAttack() const
 {
-	std::cout << "This code is unclean. PURIFY IT !\n";
+	OUT << "* does nothing *" << std::endl;
 }
 
-void			AssaultTerminator::rangedAttack() const
+void AssaultTerminator::meleeAttack() const
 {
-	std::cout << "* does nothing *\n";
+	OUT << "* attacks with chainfists *" << std::endl;
 }
 
-void			AssaultTerminator::meleeAttack() const
+ISpaceMarine *AssaultTerminator::clone() const
 {
-	std::cout << "* attacks with chainfists *\n";
+	AssaultTerminator const *t = this;
+
+	return (ISpaceMarine *) t;
 }

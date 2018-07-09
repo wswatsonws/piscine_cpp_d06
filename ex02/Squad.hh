@@ -1,22 +1,28 @@
-#ifndef SQUAD_HH
-#define SQUAD_HH
+//
+// Created by Alen BADRAJAN on 7/25/17.
+//
+
+#ifndef EX02_SQUAD_H_
+#define EX02_SQUAD_H_
 
 #include "ISquad.hh"
-#include "ISpaceMarine.hh"
 
 class Squad : public ISquad {
-private:
-	ISpaceMarine **marines;
-	int count;
-	int arrLen;
-public:
-	Squad();
-	Squad(Squad const &other);
-	virtual ~Squad();
-	Squad &operator=(Squad const &other);
-	int getCount() const;
-	ISpaceMarine *getUnit(int) const;
-	int push(ISpaceMarine*);
-};
 
-#endif
+public:
+
+  static int      nr_atributes;
+  ISpaceMarine**    s;
+
+  Squad();
+  Squad(Squad & f);
+  ~Squad();
+
+	Squad & operator=(Squad & r);
+
+	int     getCount() const;
+	ISpaceMarine* getUnit(int) const;
+	int push(ISpaceMarine*);
+	
+};
+#endif 
