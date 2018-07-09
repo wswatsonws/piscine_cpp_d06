@@ -1,69 +1,33 @@
-//
-// Created by Alen BADRAJAN on 7/25/17.
-//
-
 #include "Squad.hh"
 
-int     Squad::nr_atributes = 0;
-
-Squad::Squad()
+Squad::Squad() : _vector()
 {
-    this->s = new ISpaceMarine*[Squad::nr_atributes];
-}
-
-Squad::Squad(Squad &f)
-{
-	*this = f;
 }
 
 Squad::~Squad()
 {
-	if (this->getCount())
-		for (int i = 0; i < this->getCount(); i++)
-			delete this->s[i];
-}
-
-Squad &Squad::operator=(Squad &r)
-{
-	if (this->getCount())
-		for (int i = 0; i < this->getCount(); i++)
-			delete this->s[i];
-	this->s = r.s;
-	Squad::nr_atributes = r.getCount();
-
-	return *this;
+    for (std::vector<ISpaceMarine*>::iterator itr = _vector.begin(); itr != _vector.end(); ++itr)
+        delete *itr;
 }
 
 int Squad::getCount() const
 {
-    return Squad::nr_atributes;
+    return _vector.size();
 }
 
-ISpaceMarine * Squad::getUnit(int n) const
+ISpaceMarine* Squad::getUnit(int index)
 {
-	int		i = 0;
-
-	while (i < this->getCount() && i != n)
-		i++;
-	if (i == n)
-		return s[i];
-	return NULL;
+    return _vector[index];
 }
 
-int Squad::push(ISpaceMarine *w)
+int Squad::push(ISpaceMarine* unit)
 {
-	int i = 0;
-
-	while (i < this->getCount())
-		if (this->s[i++] == w)
-			return this->getCount();
-
-	ISpaceMarine **n = new ISpaceMarine*[Squad::nr_atributes + 1];
-	for (int i = 0; i < Squad::nr_atributes; i++)
-		n[i] = this->s[i];
-	n[Squad::nr_atributes] = w;
-	delete [] this->s;
-	this->s = n;
-	Squad::nr_atributes++;
-	return this->getCount();
+    if (!unit)
+        return getCount();
+    for (std::vector<ISpaceMarine*>::const_iterator itr = _vector.begin(); itr != _vector.end(); ++itr)
+        if (unit == *itr)
+            return getCount();
+    _vector.push_back(unit);
+    return getCount();
 }
+

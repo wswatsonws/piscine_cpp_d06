@@ -1,28 +1,21 @@
-//
-// Created by Alen BADRAJAN on 7/25/17.
-//
+#ifndef SQUAD_H_
+# define SQUAD_H_
 
-#ifndef EX02_SQUAD_H_
-#define EX02_SQUAD_H_
-
+#include <vector>
 #include "ISquad.hh"
+#include "ISpaceMarine.hh"
 
-class Squad : public ISquad {
-
+class Squad : public ISquad
+{
 public:
+    explicit Squad();
+    virtual ~Squad();
 
-  static int      nr_atributes;
-  ISpaceMarine**    s;
-
-  Squad();
-  Squad(Squad & f);
-  ~Squad();
-
-	Squad & operator=(Squad & r);
-
-	int     getCount() const;
-	ISpaceMarine* getUnit(int) const;
-	int push(ISpaceMarine*);
-	
+    int getCount() const;
+    ISpaceMarine* getUnit(int index);
+    int push(ISpaceMarine* unit);
+private:
+    std::vector<ISpaceMarine*> _vector;
 };
-#endif 
+
+#endif /* !SQUAD_H_ */

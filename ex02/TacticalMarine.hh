@@ -1,20 +1,13 @@
-//
-// Created by Alen BADRAJAN on 7/25/17.
-//
-
-#ifndef EX02_TACTICALMARINE_H_
-#define EX02_TACTICALMARINE_H_
+#ifndef TACTICALMARINE_H_
+# define TACTICALMARINE_H_
 
 #include "ISpaceMarine.hh"
 
-class TacticalMarine : public ISpaceMarine {
+class TacticalMarine : public ISpaceMarine
+{
 public:
-
-	TacticalMarine();
-	TacticalMarine(TacticalMarine & f);
-	~TacticalMarine();
-
-	TacticalMarine & operator=(TacticalMarine & r);
+    explicit TacticalMarine();
+    virtual ~TacticalMarine();
 
     ISpaceMarine* clone() const;
     void battleCry() const;
@@ -22,4 +15,4 @@ public:
     void meleeAttack() const;
 };
 
-#endif 
+#endif /* !TACTICALMARINE_H_ */

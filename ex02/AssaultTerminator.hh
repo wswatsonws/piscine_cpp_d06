@@ -1,27 +1,20 @@
-//
-// Created by Alen BADRAJAN on 7/25/17.
-//
-
-#ifndef EX02_ASSAULTTERMINATOR_H_
-#define EX02_ASSAULTTERMINATOR_H_
+#ifndef ASSAULTTERMINATOR_H_
+# define ASSAULTTERMINATOR_H_
 
 #include "ISpaceMarine.hh"
 
-class AssaultTerminator : public ISpaceMarine {
-
+class AssaultTerminator : public ISpaceMarine
+{
 public:
-
-	AssaultTerminator();
-	AssaultTerminator(AssaultTerminator & f);
-	~AssaultTerminator();
+    explicit AssaultTerminator();
+    virtual ~AssaultTerminator();
 
     ISpaceMarine* clone() const;
-	void battleCry() const;
-	void rangedAttack() const;
-	void meleeAttack() const;
-	AssaultTerminator & operator=(AssaultTerminator & r);
-
+    void battleCry() const;
+    void rangedAttack() const;
+    void meleeAttack() const;
 };
 
 
-#endif
+
+#endif /* !ASSAULTTERMINATOR_H_ */

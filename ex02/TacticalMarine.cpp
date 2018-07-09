@@ -1,49 +1,32 @@
-//
-// Created by Alen BADRAJAN on 7/25/17.
-//
-
+#include <iostream>
 #include "TacticalMarine.hh"
 
 TacticalMarine::TacticalMarine()
 {
-	OUT << "Tactical Marine ready for battle" << std::endl;
-}
-
-TacticalMarine::TacticalMarine(TacticalMarine &f)
-{
-	(void)f;
-	OUT << "Tactical Marine ready for battle" << std::endl;
+    std::cout << "Tactical Marine ready for battle" << std::endl;
 }
 
 TacticalMarine::~TacticalMarine()
 {
-    OUT << "Aaargh ..." << std::endl;
+    std::cout << "Aaargh ..." << std::endl;
 }
 
-TacticalMarine &TacticalMarine::operator=(TacticalMarine &r)
+ISpaceMarine* TacticalMarine::clone() const
 {
-	(void)r;
-	return *this;
-}
-
-ISpaceMarine *TacticalMarine::clone() const
-{
-	TacticalMarine const *t = this;
-
-	return (ISpaceMarine *) t;
+    return new TacticalMarine(*this);
 }
 
 void TacticalMarine::battleCry() const
 {
-    OUT << "For the holy PLOT !" << std::endl;
+    std::cout << "For the holy PLOT !" << std::endl;
 }
 
 void TacticalMarine::rangedAttack() const
 {
-	OUT << "* attacks with bolter *" << std::endl;
+    std::cout << "* attacks with bolter *" << std::endl;
 }
 
 void TacticalMarine::meleeAttack() const
 {
-	OUT << "* attacks with chainsword *" << std::endl;
+    std::cout << "* attacks with chainsword *" << std::endl;
 }
