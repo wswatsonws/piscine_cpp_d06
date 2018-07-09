@@ -1,21 +1,32 @@
-#ifndef MININGBARGE_H_
-# define MININGBARGE_H_
+#ifndef MININGBARGE_H
+# define MININGBARGE_H
 
 # include "IMiningLaser.hh"
 # include "IAsteroid.hh"
 
 class MiningBarge
 {
-	private:
-		IMiningLaser	*_lasers[4];
-	public:
-		MiningBarge();
-		~MiningBarge();
-		MiningBarge(const MiningBarge& mb);
-		MiningBarge& operator=(const MiningBarge& mb);
+public:
+	IMiningLaser * getMiningLaser (int index) const;
+	int getMiningLaserCount (void) const;
+	
+	MiningBarge (void);
+	MiningBarge (MiningBarge const & target);
+	~MiningBarge (void);
+	
+	void equip (IMiningLaser * newMiningLaser);
+	void mine (IAsteroid * asteroid) const;
 
-		void		equip(IMiningLaser *l);
-		void		mine(IAsteroid *a) const;
+	MiningBarge & operator = (MiningBarge const & target);
+
+private:
+	static int const _maxMiningLasers;
+	IMiningLaser ** _miningLasers;
+
+	void _init(void);
 };
+
+std::ostream & operator << (std::ostream & o, MiningBarge const & target);
+
 
 #endif

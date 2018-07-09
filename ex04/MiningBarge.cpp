@@ -1,52 +1,65 @@
 #include "MiningBarge.hh"
 
-MiningBarge::MiningBarge()
-{
-	this->_lasers[0] = 0;
-	this->_lasers[1] = 0;
-	this->_lasers[2] = 0;
-	this->_lasers[3] = 0;
+int const MiningBarge::_maxMiningLasers = 4;
+
+IMiningLaser * MiningBarge::getMiningLaser (int index) const {
+	if (index >= _maxMiningLasers)
+		return NULL;
+	else
+		return _miningLasers[index];
 }
 
-MiningBarge::~MiningBarge()
-{
+int MiningBarge::getMiningLaserCount (void) const {
+	int n;
 
+	n = 0;
+	for (int i = 0; i < _maxMiningLasers; i++)
+		if (_miningLasers[i])
+			n++;
+	return n;
 }
 
-MiningBarge::MiningBarge(const MiningBarge& mb)
-{
-	this->_lasers[0] = mb._lasers[0];
-	this->_lasers[1] = mb._lasers[1];
-	this->_lasers[2] = mb._lasers[2];
-	this->_lasers[3] = mb._lasers[3];
+MiningBarge::MiningBarge (void) {_init();}
+
+MiningBarge::MiningBarge (MiningBarge const & target) {*this = target;}
+
+MiningBarge::~MiningBarge (void) {
+	if (_miningLasers)
+		delete _miningLasers;
 }
 
-MiningBarge&	MiningBarge::operator=(const MiningBarge& mb)
-{
-	this->_lasers[0] = mb._lasers[0];
-	this->_lasers[1] = mb._lasers[1];
-	this->_lasers[2] = mb._lasers[2];
-	this->_lasers[3] = mb._lasers[3];
+void MiningBarge::equip (IMiningLaser * newMiningLaser) {
+	for (int i = 0; i < _maxMiningLasers; i++)
+		if (_miningLasers[i] == NULL) {
+			_miningLasers[i] = newMiningLaser;
+			std::cout << "Equiped new mining laser" << std::endl;
+			return;
+		}
+	std::cout << "Can't equip any more lasers" << std::endl;
+}
+
+void MiningBarge::mine (IAsteroid * asteroid) const {
+	for (int i = 0; i < _maxMiningLasers; i++)
+		if (_miningLasers[i])
+			_miningLasers[i]->mine(asteroid);
+}
+
+void MiningBarge::_init (void) {
+	_miningLasers = new IMiningLaser* [_maxMiningLasers];
+
+	for (int i = 0; i < _maxMiningLasers; i++)
+		_miningLasers[i] = NULL;
+}
+
+MiningBarge & MiningBarge::operator = (MiningBarge const & target) {
+	for (int i = 0; i < _maxMiningLasers; i++) {
+		_miningLasers[i] = target.getMiningLaser(i);
+	}
 	return *this;
 }
 
-void			MiningBarge::equip(IMiningLaser *l)
-{
-	for (int i = 0; i < 4; ++i)
-	{
-		if (!this->_lasers[i])
-		{
-			this->_lasers[i] = l;
-			break ;
-		}
-	}
-}
-
-void			MiningBarge::mine(IAsteroid *a) const
-{
-	for (int i = 0; i < 4; ++i)
-	{
-		if (this->_lasers[i])
-			this->_lasers[i]->mine(a);
-	}
+std::ostream & operator << (std::ostream & o, MiningBarge const & target) {
+	o << "MiningBarge: currently equiped " << target.getMiningLaserCount() <<
+		" mining lasers" << std::endl;
+	return o;
 }

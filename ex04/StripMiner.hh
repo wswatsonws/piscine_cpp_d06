@@ -1,19 +1,20 @@
-#ifndef STRIPMINER_H_
-# define STRIPMINER_H_
+#ifndef STRIPMINER_H
+# define STRIPMINER_H
 
 # include "IMiningLaser.hh"
 
 class StripMiner : public IMiningLaser
 {
-private:
 public:
-	StripMiner();
-	StripMiner(const StripMiner& sm);
+	StripMiner (void);
+	StripMiner (StripMiner const & target);
+	~StripMiner (void);
 	
-	virtual				~StripMiner();
-	StripMiner&			operator=(const StripMiner& sm);
+	void mine (IAsteroid * target);
 
-	virtual void		mine(IAsteroid *a);
+	StripMiner & operator = (StripMiner const & target);
 };
+
+std::ostream & operator << (std::ostream & o, StripMiner const & target);
 
 #endif

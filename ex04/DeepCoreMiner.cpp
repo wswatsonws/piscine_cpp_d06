@@ -1,30 +1,26 @@
 #include "DeepCoreMiner.hh"
-#include <iostream>
 
-DeepCoreMiner::DeepCoreMiner()
-{
+DeepCoreMiner::DeepCoreMiner (void) {}
 
+DeepCoreMiner::DeepCoreMiner (DeepCoreMiner const & target) {*this = target;}
+
+DeepCoreMiner::~DeepCoreMiner (void) {}
+
+void DeepCoreMiner::mine (IAsteroid * target) {
+	if (target == NULL)
+		return;
+
+	std::cout << "* mining deep ... got " << target->beMined(this) <<
+		"! *" << std::endl;
 }
 
-DeepCoreMiner::~DeepCoreMiner()
-{
-
-}
-
-DeepCoreMiner::DeepCoreMiner(const DeepCoreMiner& dcm)
-{
-	(void)dcm;
-}
-
-DeepCoreMiner&	DeepCoreMiner::operator=(const DeepCoreMiner& dcm)
-{
-	(void)dcm;
+DeepCoreMiner & DeepCoreMiner::operator = (DeepCoreMiner const & target) {
+	(void)target;
 	return *this;
 }
 
-void			DeepCoreMiner::mine(IAsteroid *a)
-{
-	if (!a)
-		return ;
-	std::cout << "* mining deep ... got " << a->beMined(this) << " ! *" << std::endl;
+std::ostream & operator << (std::ostream & o, DeepCoreMiner const & target) {
+	o << "It's a DeepCoreMiner" << std::endl;
+	(void)target;
+	return o;
 }
