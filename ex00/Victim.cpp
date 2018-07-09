@@ -1,9 +1,3 @@
-/**
- *
- *
- *
- */
-
 #include "Victim.hh"
 
 Victim::Victim(std::string name)

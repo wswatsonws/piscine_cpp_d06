@@ -1,11 +1,5 @@
-/**
- *
- *
- *
- */
-
-#ifndef __VICTIM_H__
-#define __VICTIM_H__
+#ifndef VICTIM_H_
+#define VICTIM_H_
 
 #include <string>
 #include <iostream>

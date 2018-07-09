@@ -1,9 +1,3 @@
-/**
- *
- *
- *
- */
-
 #include "Peon.hh"
 
 Peon::Peon(std::string name)

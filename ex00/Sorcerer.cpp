@@ -1,9 +1,3 @@
-/**
- *
- *
- *
- */
-
 #include "Sorcerer.hh"
 #include "Victim.hh"
 

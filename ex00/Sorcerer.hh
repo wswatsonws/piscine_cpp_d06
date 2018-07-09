@@ -1,11 +1,5 @@
-/**
- *
- *
- *
- */
-
-#ifndef __SORCERER_H__
-#define __SORCERER_H__
+#ifndef SORCERER_H_
+#define SORCERER_H_
 
 #include <string>
 #include <iostream>

@@ -1,11 +1,5 @@
-/**
- *
- *
- *
- */
-
-#ifndef __PEON_H__
-#define __PEON_H__
+#ifndef PEON_H_
+#define PEON_H_
 
 #include <string>
 #include <iostream>
