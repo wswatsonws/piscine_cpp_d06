@@ -30,4 +30,3 @@ int Squad::push(ISpaceMarine* unit)
     _vector.push_back(unit);
     return getCount();
 }
-
