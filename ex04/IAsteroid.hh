@@ -6,6 +6,7 @@ class IAsteroid;
 class DeepCoreMiner;
 class StripMiner;
 class IMiningLaser;
+class ZazTeroid;
 #include "IMiningLaser.hh"
 
 class IAsteroid{

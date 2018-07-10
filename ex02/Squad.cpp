@@ -6,7 +6,7 @@ Squad::Squad() : _vector()
 
 Squad::~Squad()
 {
-    for (std::vector<ISpaceMarine*>::iterator itr = _vector.begin(); itr != _vector.end(); itr++)
+    for (std::vector<ISpaceMarine*>::iterator itr = _vector.begin(); itr != _vector.end(); ++itr)
         delete *itr;
 }
 
